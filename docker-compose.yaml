@@ -1,0 +1,73 @@
+version: "3.9"
+
+services:
+
+  nginx:
+    image: nginx:alpine
+    container_name: django-channels-nginx
+    env_file: .env
+    restart: "on-failure"
+    ports:
+      - 8000:80
+    volumes:
+      - ./contrib/nginx/conf.d:/etc/nginx/conf.d
+      - ./app/web/static:${APP_BASE}/web/static
+      - ./app/web/media:${APP_BASE}/web/media
+    #   - app-static:${APP_BASE}/web/static
+    #   - app-media:${APP_BASE}/web/media
+    depends_on:
+      - app
+    networks:
+      - django-channels-net-nginx
+
+  app:
+    image: django-channels-app:latest
+    container_name: django-channels-app
+    env_file: .env
+    restart: "on-failure"
+    build:
+      context: ./app
+      args:
+        APP_ENV: ${APP_ENV}
+        APP_USER: ${APP_USER}
+        APP_BASE: ${APP_BASE}
+    expose:
+      - 8000
+    volumes:
+      - ./app:${APP_BASE}
+      - ./app/web/static:${APP_BASE}/web/static
+      - ./app/web/media:${APP_BASE}/web/media
+      # - app-base:${APP_BASE}
+      # - app-static:${APP_BASE}/web/static
+      # - app-media:${APP_BASE}/web/media
+    command: >
+      sh -c "python manage.py makemigrations &&
+             python manage.py migrate &&
+             python manage.py initiate_admin &&
+             python manage.py collectstatic --no-input &&
+             gunicorn django-channels.wsgi:application -w 2 --bind 0.0.0.0:8000"
+    depends_on:
+      - redis
+    networks:
+      - django-channels-net-nginx
+
+  redis:
+    image: redis:latest
+    container_name: django-channels-redis
+    env_file: .env
+    restart: "on-failure"
+    ports:
+      - ${REDIS_PORT}:${REDIS_PORT}
+    volumes:
+      - redis-data:/var/lib/redis/data/
+
+volumes:
+  # app-base:
+  # app-static:
+  # app-media:
+  pg-data:
+  redis-data:
+
+networks:
+  django-channels-net-nginx:
+    driver: bridge
