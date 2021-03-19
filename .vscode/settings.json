@@ -1,0 +1,10 @@
+{
+    "python.pythonPath": "./venv/bin/python",
+    "python.autoComplete.extraPaths": [
+        "app"
+    ],
+    "python.formatting.provider": "black",
+    "python.analysis.extraPaths": [
+        "app"
+    ]
+}

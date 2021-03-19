@@ -123,9 +123,23 @@ STATIC_URL = "/static/"
 ###############################################################################
 # CUSTOM SETTINGS
 ###############################################################################
+
 INSTALLED_APPS += [
+    "channels",
     "crispy_forms",
     "demo.apps.chat",
 ]
 
 TEMPLATES[0]["DIRS"] += [os.path.join(BASE_DIR, "demo", "templates")]
+
+# Django Channels settings
+CHANNEL_LAYERS = {
+    "default": {
+        "BACKEND": "channels_redis.core.RedisChannelLayer",
+        "CONFIG": {
+            "hosts": [("127.0.0.1", 6379)],
+        },
+    },
+}
+
+ASGI_APPLICATION = "demo.asgi.application"
