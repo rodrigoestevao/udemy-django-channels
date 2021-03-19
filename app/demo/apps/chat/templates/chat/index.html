@@ -1,0 +1,27 @@
+{% extends 'core/base.html' %}
+
+{% block content %}
+<div class="d-flex justify-content-center align-items-center vh100">
+  <form method="post" action="{% url 'room' %}" role="form">
+    {% csrf_token %}
+
+    <!-- input field to enter room no -->
+    <input
+      type="text"
+      class="form-control form-control-lg mb-3"
+      name="room_no"
+      placeholder="Enter the room number"
+    >
+    <!-- input field to enter name -->
+    <input
+      type="text"
+      class="form-control form-control-lg mb-3"
+      name="name"
+      placeholder="Enter the name"
+    >
+    <div class="d-flex justify-content-center align-item-center">
+      <button type="submit" class="btn btn-primary btn-block">Submit</button>
+    </div>
+  </form>
+</div>
+{% endblock %}
