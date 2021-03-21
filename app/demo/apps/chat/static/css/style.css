@@ -1,14 +1,36 @@
-.vh80 {
-    height: 80vh;
+html,body {
+    height: 100vh;
 }
 
-.vw80 {
-    width: 80vw;
+body {
+    display: flex;
+    align-items: center;
+    padding-bottom: 40px;
 }
 
-.square-v80 {
+.form-signin {
+    width: 100vw;
+    max-width: 330px;
+    padding: 15px;
+    margin: auto;
+    padding-top: 40px;
+    padding-bottom: 40px;
+}
+
+.form-signin .form-control {
     position: relative;
-    height: 80vh;
+    box-sizing: border-box;
+    height: auto;
+    padding: 10px;
+}
+
+.form-signin .form-control:focus {
+    z-index: 2;
+}
+
+.chat-room {
+    position: relative;
+    height: 100vh;
     width: 80vw;
 }
 
@@ -23,15 +45,15 @@
 
 .botton-absolute {
     bottom: 20px;
-    width: 60vw;
+    width: 100vw;
     position: absolute;
 }
 
 #messages-container {
-    overflow-y: auto;
-    width: 30vw;
-    height: 60vh;
     position: relative;
+    overflow-y: auto;
+    width: 40vw;
+    height: 80vh;
 }
 
 #message-text {
@@ -39,7 +61,7 @@
     width: 40vw;
 }
 
-#left-text {
+.left-text {
     position: absolute;
     left: 0px;
     padding: 3px;

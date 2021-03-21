@@ -43,5 +43,36 @@
       integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
       crossorigin="anonymous"
     ></script>
+    <script type="text/javascript">
+      const chatSocket = new WebSocket(
+        "ws://" + window.location.host + "/ws/chat/{{room_no}}/"
+      );
+
+      document.querySelector("#send-btn").onclick = (e) => {
+        const message = document.querySelector("#message-text").value.trim();
+        if (message) {
+          chatSocket.send(JSON.stringify({ message: "{{name}}: " + message }));
+          document.querySelector("#message-text").value = "";
+        }
+      };
+
+      document.querySelector("#message-text").onkeyup = (e) => {
+        if (e.keyCode == 13) {
+          document.querySelector("#send-btn").click();
+        }
+      }
+
+      chatSocket.onmessage = (e) => {
+        const data = JSON.parse(e.data);
+        document.querySelector("#messages-container").innerHTML +=
+          "<p><div class='left-text'>" + data.message + "</div></p><br/>";
+
+        // Scroll to bottom
+        document.querySelector("#messages-container").scrollTo({
+          top: document.querySelector("#messages-container").scrollHeight,
+          behaviour: "smooth"
+        });
+      };
+    </script>
   </body>
 </html>
