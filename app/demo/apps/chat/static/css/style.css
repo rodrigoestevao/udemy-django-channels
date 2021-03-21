@@ -1,0 +1,51 @@
+.vh80 {
+    height: 80vh;
+}
+
+.vw80 {
+    width: 80vw;
+}
+
+.square-v80 {
+    position: relative;
+    height: 80vh;
+    width: 80vw;
+}
+
+.blue-med {
+    color: #0079E5;
+}
+
+.top-absolute {
+    top: 0;
+    position: absolute;
+}
+
+.botton-absolute {
+    bottom: 20px;
+    width: 60vw;
+    position: absolute;
+}
+
+#messages-container {
+    overflow-y: auto;
+    width: 30vw;
+    height: 60vh;
+    position: relative;
+}
+
+#message-text {
+    text-align: center;
+    width: 40vw;
+}
+
+#left-text {
+    position: absolute;
+    left: 0px;
+    padding: 3px;
+    padding-left: 6px;
+    padding-right: 6px;
+    border-radius: 5px;
+    color: white;
+    background-color: #0079E5;
+}
