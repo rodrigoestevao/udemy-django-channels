@@ -126,7 +126,6 @@ STATIC_URL = "/static/"
 
 INSTALLED_APPS += [
     "channels",
-    "crispy_forms",
     "demo.apps.chat",
 ]
 
